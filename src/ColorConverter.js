@@ -20,7 +20,6 @@ class ColorConverter {
             case 'rgbB':
             default:
                 return colorObject;
-
         }
     }
 
@@ -37,7 +36,7 @@ class ColorConverter {
             r: Math.trunc((256 * colorObject.component1) / 100),
             g: Math.trunc((256 * colorObject.component2) / 100),
             b: Math.trunc((256 * colorObject.component3) / 100),
-        }
+        };
     }
 
     rgbhToRgbb(colorObject) {
@@ -45,7 +44,33 @@ class ColorConverter {
             r: Number(`0x${colorObject.component1}`),
             g: Number(`0x${colorObject.component2}`),
             b: Number(`0x${colorObject.component3}`),
+        };
+    }
+
+    xyzToRgbb(colorObject) {
+        const matrix = [
+            [2.37067, -0.90004, -0.47063],
+            [-0.51388, 1.42530, 0.08858],
+            [0.00530, -0.01469, 1.00940],
+        ]
+
+        const colorObjectRgbn = {
+            component1: (matrix[0][0] * colorObject.component1) + (matrix[0][1] * colorObject.component2) + (matrix[0][2] * colorObject.component3),
+            component2: (matrix[1][0] * colorObject.component1) + (matrix[1][1] * colorObject.component2) + (matrix[1][2] * colorObject.component3),
+            component3: (matrix[2][0] * colorObject.component1) + (matrix[2][1] * colorObject.component2) + (matrix[2][2] * colorObject.component3),
         }
+
+        return this.rgbnToRgbb(colorObjectRgbn);
+    }
+
+    cmyToRgbb(colorObject) {
+        const colorObjectRgbn = {
+            component1: 1 - colorObject.component1,
+            component2: 1 - colorObject.component2,
+            component3: 1 - colorObject.component3,
+        }
+
+        return this.rgbnToRgbb(colorObjectRgbn);
     }
 }
 
