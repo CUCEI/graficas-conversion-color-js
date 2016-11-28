@@ -4,8 +4,6 @@ class ModelSelector extends Component {
     constructor(props) {
         super(props);
 
-        this.handleSelect = this.handleSelect.bind(this);
-
         this.state = {
             model: 'rgbN',
             components: {
@@ -48,10 +46,18 @@ class ModelSelector extends Component {
     renderInputs(element, index) {
         return (
             <input
-                style={{
+                onChange={(e) => {
+                    console.log(e.target.value);
+                    this.setState({
+                        components: {
+                            ...this.state.components,
+                            [`component${index + 1}`]: e.target.value
+                        }
+                    }, () => this.props.onConvert(this.state.components, this.state.model));
                 }}
                 key={index}
                 placeholder={element}
+                value={this.state.components[`component${index + 1}`]}
             />
         );
     }
@@ -62,7 +68,7 @@ class ModelSelector extends Component {
             <section>
                 <h3>
                     Modelo a convertir:
-                    <select onChange={this.handleSelect}>
+                    <select onChange={::this.handleSelect}>
                         <option value="rgbN">RGB normalizado</option>
                         <option value="rgbP">RGB porcentaje</option>
                         <option value="rgbB">RGB bytes</option>
@@ -74,14 +80,14 @@ class ModelSelector extends Component {
                         <option value="yiq">YIQ</option>
                     </select>
                 </h3>
-                <div
+                <form
                     style={{
                         display: 'flex',
                         justifyContent: 'space-between',
                     }}
                 >
-                    {this.modelComponents.map(this.renderInputs)}
-                </div>
+                    {this.modelComponents.map(::this.renderInputs)}
+                </form>
                 <hr />
             </section>
         );

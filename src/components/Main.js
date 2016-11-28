@@ -29,7 +29,7 @@ class Main extends Component {
             <section className="container">
                 <h2>Color resultante:</h2>
                 <Color rgb={this.state.rgb} />
-                <ModelSelector onConvert={this.hanldeConvert} />
+                <ModelSelector onConvert={this.handleConvert} />
                 <div>
                     <h4>RGB normalizado:</h4>
                 </div>
