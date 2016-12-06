@@ -4,7 +4,7 @@ function Color(props) {
     let style = {
         width: '100%',
         height: '100px',
-        backgroundColor: `rgb(${props.rgb.r},${props.rgb.g},${props.rgb.b})`,
+        backgroundColor: `rgb(${Math.trunc(props.components.component1)},${Math.trunc(props.components.component2)},${Math.trunc(props.components.component3)})`,
     }
 
     return (

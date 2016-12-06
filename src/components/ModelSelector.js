@@ -40,6 +40,12 @@ class ModelSelector extends Component {
     handleSelect(evt) {
         this.setState({
             model: evt.target.value,
+            components: {
+                component1: 0,
+                component2: 0,
+                component3: 0,
+                component4: 0,
+            },
         })
     }
 
@@ -47,7 +53,6 @@ class ModelSelector extends Component {
         return (
             <input
                 onChange={(e) => {
-                    console.log(e.target.value);
                     this.setState({
                         components: {
                             ...this.state.components,
@@ -63,7 +68,6 @@ class ModelSelector extends Component {
     }
 
     render() {
-        console.log();
         return (
             <section>
                 <h3>
